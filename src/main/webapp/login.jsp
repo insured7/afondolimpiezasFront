@@ -48,7 +48,6 @@
     <small>&copy; 2025 A Fondo Limpiezas | contacto&#64;afondolimpiezas.com | +34 600 123 456</small>
   </footer>
 
-  <!-- Carga el JS para manejar login y token -->
   <script src="auth.js"></script>
 
 </body>
