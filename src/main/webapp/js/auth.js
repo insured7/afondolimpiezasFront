@@ -28,17 +28,27 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!res.ok) throw new Error('Credenciales incorrectas');
         return res.json();
       })
-      .then(data => {
-		if (data.token) {
-		  localStorage.setItem('authToken', data.token);
-		  window.location.href = userType === 'user' ? 'dashboard-usuario.jsp' : 'dashboard-empleado.jsp';
-		}
- else {
-          throw new Error('No se recibió token');
-        }
-      })
-      .catch(error => {
-        document.getElementById('errorMessage').textContent = error.message;
-      });
-  });
-});
+	  .then(data => {
+		console.log("Respuesta login-empleado:", data);
+	          if (data.token) {
+	            localStorage.setItem('authToken', data.token);
+	            if (userType === 'user') {
+	              // Si es usuario normal
+	              window.location.href = 'dashboard-usuario.jsp';
+	            } else {
+	              // Es empleado, mira si es admin
+	              if (data.esAdmin) {
+	                window.location.href = 'dashboard-admin.jsp';
+	              } else {
+	                window.location.href = 'dashboard-empleado.jsp';
+	              }
+	            }
+	          } else {
+	            throw new Error('No se recibió token');
+	          }
+	        })
+	        .catch(error => {
+	          document.getElementById('errorMessage').textContent = error.message;
+	        });
+	    });
+	  });
