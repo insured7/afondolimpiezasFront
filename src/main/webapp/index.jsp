@@ -26,7 +26,7 @@
 
   <!-- Botón presupuesto -->
   <section class="text-center my-4">
-    <a href="form-presupuesto.jsp" class="btn btn-secondary btn-warning btn-lg rounded-pill fw-bold shadow">
+    <a href="presupuesto-form.jsp" class="btn btn-secondary btn-warning btn-lg rounded-pill fw-bold shadow">
       Consulta tu presupuesto
     </a>
   </section>

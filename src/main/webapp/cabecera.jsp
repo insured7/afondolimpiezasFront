@@ -13,11 +13,11 @@
       </h4>
     </div>
     <nav class="d-flex gap-2 mt-3 mt-md-0">
-      <button class="btn btn-light" onclick="navigateTo('index.jsp')">Inicio</button>
-      <button class="btn btn-light" onclick="navigateTo('sobre-nosotros.jsp')">Sobre Nosotros</button>
-      <button class="btn btn-warning fw-bold" onclick="navigateTo('presupuesto-form.jsp')">Presupuesto</button>
-      <button class="btn btn-light" id="btnLogin" onclick="navigateTo('login.jsp')">Login</button>
-      <button class="btn btn-danger" id="btnLogout" style="display:none;">Logout</button>
+      <button class="btn btn-light fw-bold"  onclick="navigateTo('index.jsp')">Inicio</button>
+      <button class="btn btn-light fw-bold" onclick="navigateTo('sobre-nosotros.jsp')">Sobre Nosotros</button>
+      <button class="btn btn-light fw-bold" onclick="navigateTo('presupuesto-form.jsp')">Presupuesto</button>
+      <button class="btn btn-light fw-bold" id="btnLogin" onclick="navigateTo('login.jsp')">Login</button>
+      <button class="btn btn-danger fw-bold" id="btnLogout" style="display:none;">Logout</button>
     </nav>
   </div>
 </header>
@@ -41,6 +41,6 @@
 
   btnLogout.addEventListener('click', () => {
     localStorage.removeItem('authToken');
-    window.location.href = '/';
+    window.location.href = 'index.jsp';
   });
 </script>

@@ -14,12 +14,12 @@
 
 <!-- REGISTRO -->
 <div class="container-fluid flex-grow-1 d-flex align-items-center justify-content-center"
-     style="background: url('/ImagenFondo2.jpg'); background-size: cover; background-position: center;">
+     style="background: url('static/img/ImagenFondo2.jpg'); background-size: cover; background-position: center;">
     <div class="row w-100">
         <div class="col-md-5 mx-auto p-4 bg-light rounded shadow-lg my-5">
             <h2 class="text-center mb-4">Registro de Usuario</h2>
             <form id="form-registro">
-                
+
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" class="form-control" required>
@@ -52,7 +52,7 @@
 
                 <div class="d-flex justify-content-between">
                     <button type="submit" class="btn btn-success">Registrarse</button>
-                    <a href="/login.jsp" class="btn btn-outline-secondary">¿Ya tienes cuenta?</a>
+                    <a href="login.jsp" class="btn btn-outline-secondary">¿Ya tienes cuenta?</a>
                 </div>
             </form>
         </div>
@@ -66,7 +66,6 @@
 
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
 
 <script src="js/registro-usuario.js"></script>
 
