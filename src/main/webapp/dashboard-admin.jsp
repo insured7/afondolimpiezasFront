@@ -9,7 +9,6 @@
 </head>
 <body class="bg-light">
 
-
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Solicitudes de Presupuesto</h2>
 
@@ -44,6 +43,7 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+<!-- Lógica del dashboard admin -->
 <script src="js/dashboard-admin.js"></script>
 
 </body>
