@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script>
+  const rol = localStorage.getItem('rol');
+  if (rol !== 'ADMIN') {
+    alert("Acceso denegado");
+    window.location.href = 'index.jsp';
+  }
+</script>
     <title>Dashboard Admin</title>
     <meta charset="UTF-8" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -71,5 +78,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/auth-check.js"></script> <!-- Proteje la ruta -->
 </body>
 </html>

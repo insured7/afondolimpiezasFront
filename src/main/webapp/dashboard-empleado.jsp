@@ -2,6 +2,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<script>
+  const rol = localStorage.getItem('rol');
+  if (rol !== 'EMPLEADO') {
+    alert("Acceso denegado");
+    window.location.href = 'index.jsp';
+  }
+</script>
   <meta charset="UTF-8">
   <title>Dashboard Empleado - A Fondo Limpiezas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -28,6 +35,7 @@
   <footer class="bg-dark text-white text-center py-4 mt-auto">
     <small>&copy; 2025 A Fondo Limpiezas | contacto&#64;afondolimpiezas.com | +34 600 123 456</small>
   </footer>
-
 </body>
+
+
 </html>

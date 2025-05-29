@@ -11,7 +11,7 @@
   <%@ include file="cabecera.jsp" %>
 
   <div class="container my-5">
-    <h2 class="mb-4 text-center">Bienvenido, Usuario</h2>
+    <h2 class="mb-4 text-center">Bienvenido, Usuario}</h2>
     <div class="card shadow">
       <div class="card-body">
         <p><strong>Servicios contratados:</strong></p>
@@ -29,6 +29,15 @@
   <footer class="bg-dark text-white text-center py-4 mt-auto">
     <small>&copy; 2025 A Fondo Limpiezas | contacto&#64;afondolimpiezas.com | +34 600 123 456</small>
   </footer>
+  
+  
+  <script>
+  const rol = localStorage.getItem('rol');
+  if (rol !== 'USUARIO') {
+    alert("Acceso denegado");
+    window.location.href = 'login.jsp';
+  }
+</script>
 
 </body>
 </html>

@@ -22,25 +22,4 @@
   </div>
 </header>
 
-<script>
-  function navigateTo(url) {
-    window.location.href = url;
-  }
-
-  const token = localStorage.getItem('authToken');
-  const btnLogin = document.getElementById('btnLogin');
-  const btnLogout = document.getElementById('btnLogout');
-
-  if (token) {
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'inline-block';
-  } else {
-    btnLogin.style.display = 'inline-block';
-    btnLogout.style.display = 'none';
-  }
-
-  btnLogout.addEventListener('click', () => {
-    localStorage.removeItem('authToken');
-    window.location.href = 'index.jsp';
-  });
-</script>
+<script src="js/cabecera.js"></script>
