@@ -9,6 +9,7 @@
 </head>
 <body class="bg-light">
 
+
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Solicitudes de Presupuesto</h2>
 
@@ -34,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Se llenará dinámicamente -->
+               
             </tbody>
         </table>
     </div>
@@ -43,7 +44,6 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Tu script externo -->
 <script src="js/dashboard-admin.js"></script>
 
 </body>

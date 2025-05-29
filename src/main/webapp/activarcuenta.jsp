@@ -35,7 +35,6 @@
 
 </div>
 
-<!-- JS del activador -->
 <script src="js/activarcuenta.js"></script>
 
 <!-- Bootstrap JS -->
