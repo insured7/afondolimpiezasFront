@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(datos)
         }).then(function(respuesta) {
             if (respuesta.ok) {
-                alert("Registro exitoso");
+                alert("Registro exitoso. Se ha enviado un correo de confirmación.");
                 window.location.href = "index.jsp";
             } else {
                 respuesta.text().then(texto => {
