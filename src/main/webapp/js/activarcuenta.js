@@ -1,32 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
-	const token = document.body.getAttribute('data-token');
-	if (!token || token.trim() === "") {
-		mostrarMensaje('Token no válido o ausente.', 'danger');
-		return;
-	}
+document.addEventListener('DOMContentLoaded', () => {
+    const mensajeDiv = document.getElementById('mensaje');
+    const loadingDiv = document.getElementById('loading');
+    const token = document.body.dataset.token;
 
+    function showMessage(texto, tipo) {
+        mensajeDiv.className = `alert alert-${tipo}`;
+        mensajeDiv.textContent = texto;
+        mensajeDiv.classList.remove('d-none');
+    }
 
-	fetch('http://localhost:8080/auth/activar-cuenta?token=' + encodeURIComponent(token), {
-		method: 'GET'
-	})
-		.then(response => {
-			if (response.ok) {
-				mostrarMensaje('¡Cuenta activada correctamente! Ahora puedes iniciar sesión.', 'success');
-				setTimeout(() => window.location.href = 'login.jsp', 3000);
-			} else {
-				return response.json().then(data => {
-					mostrarMensaje(data.mensaje || 'Error al activar la cuenta.', 'danger');
-				});
-			}
-		})
-		.catch(() => {
-			mostrarMensaje('Error de conexión con el servidor.', 'danger');
-		});
+    function hideLoading() {
+        loadingDiv.classList.add('d-none');
+    }
 
-	function mostrarMensaje(texto, tipo) {
-		var mensajeDiv = document.getElementById('mensaje');
-		mensajeDiv.textContent = texto;
-		mensajeDiv.className = 'alert alert-' + tipo;
-		mensajeDiv.classList.remove('d-none');
-	}
+    function activateAccount(token) {
+        fetch(`http://localhost:8080/auth/activar-cuenta?token=${encodeURIComponent(token)}`, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => Promise.reject(err));
+            }
+            return response.json();
+        })
+        .then(data => {
+            showMessage(data.mensaje, 'success');
+            hideLoading();
+            setTimeout(() => {
+                window.location.href = data.redirect || 'login.jsp';
+            }, 3000);
+        })
+        .catch(error => {
+            const errorMsg = error.mensaje || 'Error al activar la cuenta';
+            showMessage(errorMsg, 'danger');
+            hideLoading();
+
+            if (error.tokenExpirado) {
+                const resendBtn = document.createElement('button');
+                resendBtn.className = 'btn btn-primary mt-3';
+                resendBtn.textContent = 'Reenviar email de activación';
+                resendBtn.onclick = () => resendActivationEmail(token);
+                mensajeDiv.appendChild(resendBtn);
+            }
+        });
+    }
+
+    // Iniciar proceso si token existe
+    if (token) {
+        activateAccount(token);
+    } else {
+        showMessage('Token no proporcionado', 'danger');
+        hideLoading();
+    }
 });
