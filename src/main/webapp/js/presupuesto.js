@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
+	
   var form = document.getElementById("presupuestoForm");
   var responseDiv = document.getElementById("responseMessage");
 
