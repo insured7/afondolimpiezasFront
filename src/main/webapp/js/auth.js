@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			: 'http://localhost:8080/auth/login-empleado';
 
 
+			//Login
 		fetch(loginUrl, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
