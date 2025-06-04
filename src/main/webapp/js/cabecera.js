@@ -2,53 +2,94 @@ function navigateTo(url) {
   window.location.href = url;
 }
 
-// Obtener datos del almacenamiento local
-const token = localStorage.getItem('authToken');
-const rol = localStorage.getItem('rol');
+// Obtener token y rol del almacenamiento local (modo ES5)
+var token = localStorage.getItem("authToken");
+var rol = localStorage.getItem("rol");
 
-// Obtener botones del DOM
-const btnLogin = document.getElementById('btnLogin');
-const btnLogout = document.getElementById('btnLogout');
-const btnPresupuesto = document.getElementById('btnPresupuesto');
+// Obtener botones
+var btnLogin = document.getElementById("btnLogin");
+var btnLogout = document.getElementById("btnLogout");
+var btnPresupuesto = document.getElementById("btnPresupuesto");
+var btnDashboardUsuario = document.getElementById("btnDashboardUsuario");
+var btnDashboardEmpleado = document.getElementById("btnDashboardEmpleado");
+var btnDashboardAdmin = document.getElementById("btnDashboardAdmin");
 
-const pagina = window.location.pathname;
+var pagina = window.location.pathname;
 
-// Control de visibilidad del login/logout
-if (btnLogin && btnLogout) {
-  if (token) {
-    btnLogin.style.display = 'none';
-    btnLogout.style.display = 'inline-block';
-  } else {
-    btnLogin.style.display = 'inline-block';
-    btnLogout.style.display = 'none';
-  }
+
+
+// Mostrar solo el botón de dashboard que corresponda según rol
+if (rol === "USUARIO") {
+  if (btnDashboardUsuario) btnDashboardUsuario.style.display = "inline-block";
+} else if (rol === "EMPLEADO") {
+  if (btnDashboardEmpleado) btnDashboardEmpleado.style.display = "inline-block";
+} else if (rol === "ADMIN") {
+  if (btnDashboardAdmin) btnDashboardAdmin.style.display = "inline-block";
 }
 
-// Acción del botón de logout
+// Mostrar u ocultar botones según login
+if (token) {
+  if (btnLogin) btnLogin.style.display = "none";
+  if (btnLogout) btnLogout.style.display = "inline-block";
+} else {
+  if (btnLogin) btnLogin.style.display = "inline-block";
+  if (btnLogout) btnLogout.style.display = "none";
+}
+
+// Acción del botón logout
 if (btnLogout) {
-  btnLogout.addEventListener('click', function () {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('rol');
-
-    // Podrías invalidar sesión en el servidor también aquí si usas una URL como /logout
-    // fetch('/logout', { method: 'POST' });
-
-    window.location.href = 'index.jsp';
+  btnLogout.addEventListener("click", function () {
+    localStorage.removeItem("authToken");
+    localStorage.removeItem("rol");
+    window.location.href = "index.jsp";
   });
 }
 
-// Ocultar botón de presupuesto para empleados/admin
-if (btnPresupuesto && (rol === 'EMPLEADO' || rol === 'ADMIN')) {
-  btnPresupuesto.style.display = 'none';
+// Mostrar u ocultar botón presupuesto:
+// Visible para USUARIO y para no logueados (token null), oculto para admin o empleado
+if (btnPresupuesto) {
+  if (rol === "ADMIN" || rol === "EMPLEADO") {
+    btnPresupuesto.style.display = "none";
+  } else {
+    btnPresupuesto.style.display = "inline-block";
+  }
 }
 
-// Redirigir al login si no hay token y se intenta acceder al dashboard
-if (!token && pagina.includes('dashboard')) {
-  window.location.href = 'index.jsp';
+// Bloquear acceso a presupuesto-form.jsp si no hay sesión (token null)
+if (pagina.indexOf("presupuesto-form.jsp") !== -1) {
+  if (!token) {
+    alert("Debes iniciar sesión para solicitar un presupuesto.");
+    window.location.href = "login.jsp";
+  } else if (rol !== "USUARIO") {
+    alert("Solo los usuarios pueden solicitar presupuestos.");
+    window.location.href = "index.jsp";
+  }
 }
 
-// Prevenir que empleados/admin accedan al formulario de presupuestos
-if ((rol === 'EMPLEADO' || rol === 'ADMIN') && pagina.endsWith('presupuesto-form.jsp')) {
-  alert('Solo los usuarios pueden solicitar presupuestos.');
-  window.location.href = 'index.jsp';
+// Redirigir si no hay sesión e intenta acceder a un dashboard
+if (!token && pagina.indexOf("dashboard") !== -1) {
+  alert("Debes iniciar sesión para acceder al panel.");
+  window.location.href = "login.jsp";
+}
+
+// Proteger dashboards por rol
+if (pagina.indexOf("dashboard-usuario") !== -1 && rol !== "USUARIO") {
+  alert("No tienes acceso al panel de usuario.");
+  window.location.href = "index.jsp";
+}
+
+if (pagina.indexOf("dashboard-empleado") !== -1 && rol !== "EMPLEADO") {
+  alert("No tienes acceso al panel de empleado.");
+  window.location.href = "index.jsp";
+}
+
+if (pagina.indexOf("dashboard-admin") !== -1 && rol !== "ADMIN") {
+  alert("No tienes acceso al panel de administrador.");
+  window.location.href = "index.jsp";
+}
+
+// Prevenir acceso al formulario de presupuesto para roles no permitidos
+if ((rol === "EMPLEADO" || rol === "ADMIN") && pagina.indexOf("presupuesto-form.jsp") !== -1) {
+  alert("Solo los usuarios pueden solicitar presupuestos.");
+  window.location.href = "index.jsp";
 }

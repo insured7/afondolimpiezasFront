@@ -11,20 +11,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
 <%@ include file="cabecera.jsp" %>
 
-<%
-    String usuarioId = (String) session.getAttribute("usuarioId");
-    if (usuarioId == null) {
-%>
-    <script>
-        alert("Debes iniciar sesión para solicitar un presupuesto.");
-        window.location.href = "login.jsp";
-    </script>
-<%
-        return;
-    }
-%>
   <!-- Formulario presupuesto -->
   <div class="container-fluid py-5 d-flex align-items-center justify-content-center"
        style="background: url('static/img/ImagenFondo2.jpg'); min-height: 100vh; background-size: cover; background-position: center">
@@ -38,6 +27,8 @@
                 <div class="mb-3">
                   <label for="nombre" class="form-label">Nombre o Empresa</label>
                   <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre o empresa" required/>
+               
+                  
                 </div>
               </div>
               <div class="col-md-6">

@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var formulario = document.getElementById('form-registro');
+	//document.getElementById("usuarioId").value = localStorage.getItem("usuarioId") || "";
 
     formulario.addEventListener('submit', function(event) {
         event.preventDefault();

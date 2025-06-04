@@ -58,7 +58,7 @@
 			contacto&#64;afondolimpiezas.com | +34 600 123 456</small>
 	</footer>
 
-	<script src="js/auth.js"></script>
+	<script src="js/login.js"></script>
 
 </body>
 </html>

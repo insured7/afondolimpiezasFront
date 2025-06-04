@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     return;
   }
 
-  // Obtener datos del usuario (nombre, correo, fotoPerfil)
+  // Obtener datos del usuario
   fetch('http://localhost:8080/dashboard/usuario', {
     headers: {
       'Authorization': 'Bearer ' + token
@@ -23,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
       var imgFoto = document.getElementById('fotoPerfil');
       if (data.fotoPerfilUrl) {
-        // Aquí asumimos que el backend sirve la imagen correctamente en /uploads/
         imgFoto.src = data.fotoPerfilUrl;
         imgFoto.alt = 'Foto de perfil de ' + data.nombre;
       } else {
-        imgFoto.src = 'images/default-profile.png'; // foto por defecto local
+        imgFoto.src = 'images/default-profile.png';
         imgFoto.alt = 'Foto de perfil por defecto';
       }
     })
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error(error);
     });
 
-  // Subir foto al servidor
+  // Subir foto
   document.getElementById('formFotoPerfil').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -62,14 +61,14 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(function (msg) {
         alert(msg);
-        location.reload();  // recarga para actualizar la imagen
+        location.reload();
       })
       .catch(function (err) {
         alert('Error al subir la foto: ' + err.message);
       });
   });
 
-  // Cargar solicitudes del usuario y mostrarlas en la lista
+  // Cargar solicitudes del usuario
   fetch('http://localhost:8080/dashboard/usuario/solicitudes', {
     headers: {
       'Authorization': 'Bearer ' + token
@@ -80,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return res.json();
     })
     .then(data => {
-      var listaSolicitudes = document.getElementById('listaServicios'); // El id en el HTML es listaServicios
+      var listaSolicitudes = document.getElementById('listaServicios');
       listaSolicitudes.innerHTML = '';
 
       if (data.length === 0) {
@@ -90,7 +89,17 @@ document.addEventListener('DOMContentLoaded', function () {
       } else {
         data.forEach(solicitud => {
           var li = document.createElement('li');
-          li.textContent = solicitud.detalles || 'Solicitud sin descripción';
+          li.classList.add('list-group-item', 'mb-3', 'border', 'rounded', 'p-3');
+
+          li.innerHTML = `
+            <strong>Detalles:</strong> ${solicitud.detalles || 'Sin detalles'}<br>
+            <strong>Dirección:</strong> ${solicitud.direccion || 'No especificada'}<br>
+            <strong>Estado:</strong> 
+              <span class="badge ${solicitud.estado === 'aceptado' ? 'bg-success' : solicitud.estado === 'rechazado' ? 'bg-danger' : 'bg-secondary'}">
+                ${solicitud.estado || 'pendiente'}
+              </span>
+          `;
+
           listaSolicitudes.appendChild(li);
         });
       }
@@ -98,5 +107,4 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(err => {
       console.error('Error al cargar solicitudes:', err);
     });
-
 });
